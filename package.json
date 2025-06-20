@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "format": "prettier --write \"src/**/*.ts\""
+    "format": "prettier --write \"src/**/*.ts\"",
+    "generate-api-client": "ng-openapi-gen --input openapi.json --output src/app/api"
   },
   "private": true,
   "dependencies": {

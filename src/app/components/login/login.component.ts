@@ -1,9 +1,16 @@
-import {Component, signal} from '@angular/core';
-import {FormControl, FormsModule, ReactiveFormsModule, Validators,} from '@angular/forms';
-import {MatButton} from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
-import {MatInputModule,} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { Component, signal } from '@angular/core';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {UserService} from "../../api/services/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -23,10 +30,13 @@ export class LoginComponent {
 
   errorMessage = signal('');
 
-  constructor() {}
+  constructor(private userService: UserService, private router: Router) { }
 
   onSubmit() {
-    console.log(this.email.value);
+    this.userService.userControllerLogIn({body: { email: this.email.value!}}).subscribe((data) => {
+      localStorage.setItem('token', data.access_token);
+      return this.router.navigate(['/']);
+    });
   }
   updateErrorMessage() {
     if (this.email.hasError('required')) {
