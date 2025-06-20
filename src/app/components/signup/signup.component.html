@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Sing-up</h2>
+<mat-dialog-content>
+  Do you want to sign up with this email?
+  <h3>{{data.email}}</h3>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton mat-dialog-close (click)="onNoClick()">No</button>
+  <button matButton [mat-dialog-close]="email()" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

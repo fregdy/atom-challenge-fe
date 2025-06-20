@@ -6,9 +6,9 @@ import {
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import {provideHttpClient} from "@angular/common/http";
-import {apiConfigFactory} from "./core/api.config.factory";
-import {ApiConfiguration} from "./api/api-configuration";
+import { provideHttpClient } from '@angular/common/http';
+import { apiConfigFactory } from './core/api.config.factory';
+import { ApiConfiguration } from './api/api-configuration';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +19,6 @@ export const appConfig: ApplicationConfig = {
     {
       provide: ApiConfiguration,
       useFactory: apiConfigFactory,
-    }
+    },
   ],
 };
