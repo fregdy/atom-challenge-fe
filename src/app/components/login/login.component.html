@@ -1,0 +1,27 @@
+<mat-card class="login-card">
+  <mat-card-title>Login</mat-card-title>
+  <form (ngSubmit)="onSubmit()">
+    <mat-form-field class="full-width">
+      <mat-label>Enter your email</mat-label>
+      <input
+        matInput
+        placeholder="pat@example.com"
+        [formControl]="email"
+        (blur)="updateErrorMessage()"
+        required
+      />
+      @if (email.invalid) {
+        <mat-error>{{ errorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="email.invalid"
+      class="full-width"
+    >
+      Login
+    </button>
+  </form>
+</mat-card>
