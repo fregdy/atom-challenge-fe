@@ -6,6 +6,8 @@ import {TaskDto} from "../../api/models/task-dto";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {TaskService} from "../../api/services/task.service";
+import {MatDialog} from "@angular/material/dialog";
+import {TaskDialogComponent} from "../task-dialog/task-dialog.component";
 
 @Component({
   selector: 'app-task-list',
@@ -15,8 +17,9 @@ import {TaskService} from "../../api/services/task.service";
 })
 export class TaskTableComponent implements AfterViewInit {
   readonly taskService= inject(TaskService);
+  readonly dialog = inject(MatDialog);
   isLoading = signal(true);
-  displayedColumns: string[] = ['title', 'description', 'date','status'];
+  displayedColumns: string[] = ['title', 'description', 'createdAt','status'];
   dataSource: TaskDto[] = [];
   ngAfterViewInit(): void {
    this.refreshTaskTable();
@@ -29,6 +32,28 @@ export class TaskTableComponent implements AfterViewInit {
     });
   }
 
-  addTask(){
+  onAddTaskDialog(){
+    const dialogRef = this.dialog.open(TaskDialogComponent);
+    dialogRef.afterClosed().subscribe((newTask) => {
+      if (newTask == undefined) {
+        return;
+      }
+      this.isLoading.set(true);
+      this.taskService
+        .taskControllerCreateTask({ body: { ...newTask } })
+        .subscribe({
+          next: () => this.refreshTaskTable(),
+          error: () => {
+            // TODO: show error toast
+            this.isLoading.set(false);
+          },
+        });
+    });
+  }
+
+  convertTimestampToDateString(timestamp: { _seconds: number; _nanoseconds: number }): string {
+    const milliseconds = timestamp._seconds * 1000 + Math.floor(timestamp._nanoseconds / 1_000_000);
+    const date = new Date(milliseconds);
+    return date.toLocaleString();
   }
 }
