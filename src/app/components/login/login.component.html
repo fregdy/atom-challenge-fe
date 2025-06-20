@@ -14,11 +14,16 @@
         <mat-error>{{ errorMessage() }}</mat-error>
       }
     </mat-form-field>
+    @if (isLoading()) {
+      <div class="spinner-container">
+        <mat-spinner diameter="30"></mat-spinner>
+      </div>
+    }
     <button
       mat-raised-button
       color="primary"
       type="submit"
-      [disabled]="email.invalid"
+      [disabled]="email.invalid || isLoading()"
       class="full-width"
     >
       Login

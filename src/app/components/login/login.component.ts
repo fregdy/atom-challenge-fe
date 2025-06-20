@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { SignupComponent } from '../signup/signup.component';
 import { AccessToken } from '../../api/models/access-token';
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-login',
@@ -29,6 +30,7 @@ import { AccessToken } from '../../api/models/access-token';
     ReactiveFormsModule,
     MatCardModule,
     MatButton,
+    MatProgressSpinner,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -41,13 +43,16 @@ export class LoginComponent {
   readonly dialog = inject(MatDialog);
 
   errorMessage = signal('');
+  isLoading = signal<boolean>(false);
 
   onSubmit() {
+    this.isLoading.set(true);
     this.userService
       .userControllerLogIn({ body: { email: this.email.value! } })
       .subscribe({
         next: (data) => this.setTokenAndRedirect(data),
         error: (err) => {
+          this.isLoading.set(false);
           switch (err.status) {
             case 404: // Not found
               return this.openDialog();
@@ -71,12 +76,14 @@ export class LoginComponent {
       if (email == undefined) {
         return;
       }
+      this.isLoading.set(true);
       this.userService
         .userControllerSignUp({ body: { email: email } })
         .subscribe({
           next: (data) => this.setTokenAndRedirect(data),
           error: () => {
             // TODO: show error toast
+            this.isLoading.set(false);
           },
         });
     });

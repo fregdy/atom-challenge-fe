@@ -1,0 +1,55 @@
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 16px;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  padding: 24px 0;
+}
+
+.action-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 600px;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.5rem;
+    padding: 16px 0;
+  }
+
+  .action-row {
+    justify-content: center;
+  }
+
+  table {
+    min-width: 100%;
+    font-size: 14px;
+  }
+}
+
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
