@@ -11,7 +11,7 @@ describe('TaskDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [TaskDialogComponent],
       providers: [
-        { provide: MatDialogRef, useValue: { close: () => {} } },
+        { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: {} },
       ]
     })

@@ -26,16 +26,11 @@
         <td mat-cell *matCellDef="let task"> {{task.description}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="createdAt">
-        <th mat-header-cell *matHeaderCellDef> Created At </th>
-        <td mat-cell *matCellDef="let task"> {{task.createdAt}} </td>
-      </ng-container>
-
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef> Completed </th>
         <td mat-cell *matCellDef="let task">
           <mat-checkbox (click)="$event.stopPropagation()"
-                        (change)="true"
+                        (change)="onUpdateTaskStatus()"
                         [checked]="task.status==='COMPLETED'">
           </mat-checkbox>
         </td>

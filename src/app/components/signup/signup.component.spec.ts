@@ -11,7 +11,7 @@ describe('SignupComponent', () => {
     await TestBed.configureTestingModule({
       imports: [SignupComponent],
       providers: [
-        { provide: MatDialogRef, useValue: { close: () => {} } },
+        { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: {} },
       ]
     }).compileComponents();

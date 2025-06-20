@@ -19,7 +19,7 @@ export class TaskTableComponent implements AfterViewInit {
   readonly taskService= inject(TaskService);
   readonly dialog = inject(MatDialog);
   isLoading = signal(true);
-  displayedColumns: string[] = ['title', 'description', 'createdAt','status'];
+  displayedColumns: string[] = ['title', 'description','status'];
   dataSource: TaskDto[] = [];
   ngAfterViewInit(): void {
    this.refreshTaskTable();
@@ -51,9 +51,7 @@ export class TaskTableComponent implements AfterViewInit {
     });
   }
 
-  convertTimestampToDateString(timestamp: { _seconds: number; _nanoseconds: number }): string {
-    const milliseconds = timestamp._seconds * 1000 + Math.floor(timestamp._nanoseconds / 1_000_000);
-    const date = new Date(milliseconds);
-    return date.toLocaleString();
+  onUpdateTaskStatus(){
+  // TODO: update task
   }
 }
